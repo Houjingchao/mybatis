@@ -1,12 +1,12 @@
 package com.jaf.Test;
 
 import com.jaf.domain.User;
+import com.jaf.Mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import java.io.File;
 import java.io.Reader;
 
 /**
@@ -32,9 +32,17 @@ public class Test {
     public static void main(String[] args) {
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            User user = (User) session.selectOne("com.jaf.mapping.userMapper.selectUserByID", 1);
+            /*----------------方法1-----------------*/
+//            User user = (User) session.selectOne("com.jaf.Mapper.UserMapper.selectUserByID", 1);
+//            System.out.println(user.getUserAddress());
+//            System.out.println(user.getUserName());
+
+            /*----------------方法2-----------------*/
+            UserMapper userMapper=session.getMapper(UserMapper.class);
+            User user = userMapper.selectUserByID(1);
             System.out.println(user.getUserAddress());
             System.out.println(user.getUserName());
+
         } finally {
             session.close();
         }

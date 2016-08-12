@@ -21,7 +21,7 @@
     </environments>
 
     <mappers>
-        <mapper resource="userMapper.xml"/>
+        <mapper resource="com/jaf/mapping/userMapper.xml"/>
     </mappers>
 
 </configuration>

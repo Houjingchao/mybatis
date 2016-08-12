@@ -21,5 +21,23 @@
             <version>3.4.1</version>
         </dependency>
     </dependencies>
+    <!-- 注意:开发工具用IDEA 的情况下==》 会出现无法读取配置文件的错误 可以采取此种方式进行处理
 
+    其他的处理方式请参照: http://www.linuxidc.com/Linux/2016-08/133842.htm
+ -->
+    <build>
+        <finalName>mybatis</finalName>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
 </project>
