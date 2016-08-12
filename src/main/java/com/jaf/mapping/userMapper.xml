@@ -2,8 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace 指定的是Mapper 下的 UserMapper-->
+
+<!-- 为了返回list 类型而定义的returnMap -->
+
+
 <mapper namespace="com.jaf.Mapper.UserMapper">
+    <!--====================-自定义returnMap=====================-->
+    <resultMap type="User" id="resultListUser">
+        <id column="id" property="id" />
+        <result column="userName" property="userName" />
+        <result column="userAge" property="userAge" />
+        <result column="userAddress" property="userAddress" />
+    </resultMap>
+
     <select id="selectUserByID" parameterType="int" resultType="User">
         select * from `user` where id = #{id}
     </select>
+
+    <!-- 返回list 的select 语句，注意 resultMap 的值是指向前面定义好的 -->
+    <select id="selectUsers" parameterType="string" resultMap="resultListUser">
+        select * from user where userName like #{userName}
+    </select>
+
 </mapper>
