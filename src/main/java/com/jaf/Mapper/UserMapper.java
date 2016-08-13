@@ -12,4 +12,7 @@ public interface UserMapper {
     User selectUserByID(int id);
 
     List selectUsers(String userName);
+
+    /*增加addUser方法*/
+    void addUser(User user);
 }

@@ -24,4 +24,16 @@
         select * from user where userName like #{userName}
     </select>
 
+    <!--执行增加操作的SQL语句。id和parameterType
+       分别与IUserOperation接口中的addUser方法的名字和
+       参数类型一致。以#{name}的形式引用Student参数
+       的name属性，MyBatis将使用反射读取Student参数
+       的此属性。#{name}中name大小写敏感。引用其他
+       的gender等属性与此一致。seGeneratedKeys设置
+       为"true"表明要MyBatis获取由数据库自动生成的主
+       键；keyProperty="id"指定把获取到的主键值注入
+       到Student的id属性-->
+    <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        INSERT into user(userName,userAge,userAddress) VALUES(#{userName},#{userAge},#{userAddress})
+    </insert>
 </mapper>
