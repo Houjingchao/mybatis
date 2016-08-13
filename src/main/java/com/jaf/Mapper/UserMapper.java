@@ -1,5 +1,6 @@
 package com.jaf.Mapper;
 
+import com.jaf.domain.Article;
 import com.jaf.domain.User;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface UserMapper {
 
     /*增加deleteUser方法*/
     void deleteUser(int id);
+
+    List<Article> getUserArticles(int id);
 
 }

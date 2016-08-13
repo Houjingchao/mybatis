@@ -1,5 +1,6 @@
 package com.jaf.Test;
 
+import com.jaf.domain.Article;
 import com.jaf.domain.User;
 import com.jaf.Mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
@@ -8,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.Reader;
+import java.util.List;
 
 /**
  * Created by jaf on 16/8/12.
@@ -89,9 +91,24 @@ public class Test {
         }
     }
 
+    public void getUserArticles(int userid){
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            UserMapper userMapper=session.getMapper(UserMapper.class);
+            List<Article> articles = userMapper.getUserArticles(userid);
+            for(Article article:articles){
+                System.out.println(article.getTitle()+":"+article.getContent()+
+                        ":作者是:"+article.getUser().getUserName()+":地址:"+
+                        article.getUser().getUserAddress());
+            }
+        } finally {
+            session.close();
+        }
+    }
     public static void main(String[] args) {
         Test test = new Test();
 //        test.addUser();
-        test.deleteUser(1);
+//        test.deleteUser(1);
+        test.getUserArticles(2);
     }
 }

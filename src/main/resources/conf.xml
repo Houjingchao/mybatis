@@ -5,6 +5,9 @@
     <!-- 意义仅仅在于减少完全限定名的冗余-->
     <typeAliases>
         <typeAlias alias="User" type="com.jaf.domain.User"></typeAlias>
+
+        <!-- 注意当在domain 下增加了Entity 后需要在这里配置相应的文件-->
+        <typeAlias alias="Article" type="com.jaf.domain.Article"></typeAlias>
     </typeAliases>
 
     <environments default="development">

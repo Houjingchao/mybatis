@@ -2,10 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace 指定的是Mapper 下的 UserMapper-->
-
 <!-- 为了返回list 类型而定义的returnMap -->
-
-
 <mapper namespace="com.jaf.Mapper.UserMapper">
     <!--====================-自定义returnMap=====================-->
     <resultMap type="User" id="resultListUser">
@@ -13,6 +10,30 @@
         <result column="userName" property="userName"/>
         <result column="userAge" property="userAge"/>
         <result column="userAddress" property="userAddress"/>
+    </resultMap>
+
+    <!--User 联合文章进行查询 方法之一的配置 (多对一的配置)-->
+    <resultMap id="resultUserArticleList" type="Article">
+        <id property="id" column="aid"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+
+        <association property="user" javaType="User">
+            <id property="id" column="id"/>
+            <result property="userName" column="userName"/>
+            <result property="userAddress" column="userAddress"/>
+        </association>
+
+    </resultMap>
+
+
+    <!-- User 联合文章进行查询 方法之二的配置 (多对一的方式) -->
+    <resultMap id="resultUserArticleList-2" type="Article">
+        <id property="id" column="aid"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <!-- 相当于重用了上文中刚刚定义的 resultListUser -->
+        <association property="user" javaType="User" resultMap="resultListUser"/>
     </resultMap>
 
     <select id="selectUserByID" parameterType="int" resultType="User">
@@ -40,4 +61,13 @@
     <delete id="deleteUser" parameterType="int">
         delete from user where id=#{id}
     </delete>
+
+    <!--此处的resultMap 可以是 resultUserArticleList  也可以是resultUserArticleList-2 -->
+    <select id="getUserArticles" parameterType="int" resultMap="resultUserArticleList-2">
+        SELECT
+        user.id,user.userName,user.userAddress,article.id aid,article.title,article.content
+        from user,article
+        where user.id = article.userid and user.id = #{id}
+    </select>
+
 </mapper>
