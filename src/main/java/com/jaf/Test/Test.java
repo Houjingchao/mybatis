@@ -77,8 +77,21 @@ public class Test {
 
     }
 
+    /*同样删除后记得,提交事务,否则修改不了数据库*/
+    public void deleteUser(int id) {
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            UserMapper userMapper = session.getMapper(UserMapper.class);
+            userMapper.deleteUser(id);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
+
     public static void main(String[] args) {
         Test test = new Test();
-        test.addUser();
+//        test.addUser();
+        test.deleteUser(1);
     }
 }

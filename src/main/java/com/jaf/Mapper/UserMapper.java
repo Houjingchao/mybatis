@@ -15,4 +15,8 @@ public interface UserMapper {
 
     /*增加addUser方法*/
     void addUser(User user);
+
+    /*增加deleteUser方法*/
+    void deleteUser(int id);
+
 }

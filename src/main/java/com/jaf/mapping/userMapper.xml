@@ -9,10 +9,10 @@
 <mapper namespace="com.jaf.Mapper.UserMapper">
     <!--====================-自定义returnMap=====================-->
     <resultMap type="User" id="resultListUser">
-        <id column="id" property="id" />
-        <result column="userName" property="userName" />
-        <result column="userAge" property="userAge" />
-        <result column="userAddress" property="userAddress" />
+        <id column="id" property="id"/>
+        <result column="userName" property="userName"/>
+        <result column="userAge" property="userAge"/>
+        <result column="userAddress" property="userAddress"/>
     </resultMap>
 
     <select id="selectUserByID" parameterType="int" resultType="User">
@@ -36,4 +36,8 @@
     <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
         INSERT into user(userName,userAge,userAddress) VALUES(#{userName},#{userAge},#{userAddress})
     </insert>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
 </mapper>
